@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/COSC-310-team-11/A3COSC310-Team11.github.io#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "express": "^4.17.3",
     "natural": "^5.1.13",
     "sentiment": "^5.0.2"
