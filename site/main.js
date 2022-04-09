@@ -28,8 +28,8 @@ function whatSaid() {
     var input = document.getElementById('userInput');
     var userInput = input.value.toLowerCase();
 
-    //print out user message
-    addToChatLog('user', userInput);
+    // //print out user message
+    // addToChatLog('user', userInput);
 
     // clear the input box
     input.value = '';
@@ -43,6 +43,7 @@ function whatSaid() {
     .then(res => res.json())
     .then(data => {
         const respo =  data.output;
+        addToChatLog('user', userInput);
         //print it out
         addToChatLog('bot', respo);
         spinImage();

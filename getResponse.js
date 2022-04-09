@@ -2,6 +2,8 @@ let Natural = require('natural');
 const nlp_sentiment = require('sentiment');
 const sentiment_instance = new nlp_sentiment(); //for sentiment analysis
 const wordvecs = require('./wordVecs.js');
+const wikipedia = require('./wikipedia');
+
 //this is what the bot knows
 var vocabulary = [
 	['hi', ['hello', 'greetings', 'hey there'], 'hello'],
@@ -359,15 +361,6 @@ function analyzeSentiment(input) {
 //all the input-parsing code goes into this function
 function getResponse(input){
 
-    //this strips the punctuation and the spaces from user input
-   // var punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
-
-    //convert to lower case | remove punctuation | remove spaces
-   // var userInput = input.replace(punctRE, '').replace(/\s+/g, ' ').toLowerCase();
-    //leaving above old code in case we want to test the old code
-
-  //  var userInput = input.replace(punctRE, '').toLowerCase();
-
 	//calculate the sentiment
 	let sentiment = analyzeSentiment(input);
 	//if sentiment is overwhelmingly positive or negative, return a different response
@@ -378,8 +371,12 @@ function getResponse(input){
 		return negative_vocabulary[Math.floor(Math.random() * negative_vocabulary.length)];
 	}
 
-    // get stemmed version of user input without spaces
-    // userInput = stemInput(input);
+    //if this a question
+	if(wikipedia.is_question(input)){
+		//if this is a question, we need to use an api call but this function isn't aync, so we must exit this function and perform async operations outside it
+		//first element is a code to indicate this needs to be async, second element indicates the exact api feature
+		return ['ASYNC', 'WIKIPEDIA'];
+	}
 
     var bestmatching = bestMatch(input.toLowerCase());
 	if (bestmatching === -1)

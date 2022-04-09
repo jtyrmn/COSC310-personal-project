@@ -1,5 +1,6 @@
 const express = require('express');
 const getResponse = require('./getResponse');
+const wikipedia = require('./wikipedia');
 const server = express();
 
 server.use(express.json());
@@ -9,10 +10,23 @@ server.use('/', express.static('site'));
 
 server.post('/api/', (req, res) => {
     const input = req.body.input;
-    console.log('input: ', input);
     const output = getResponse(input);
-    console.log('output: ', output);
-    res.json({output: output});
+    
+    if(Array.isArray(output) && output[0] == 'ASYNC'){
+        //if we need to do async stuff
+        
+        //wikipedia API feature
+        if(output[1] == 'WIKIPEDIA'){
+            wikipedia.fetch_snippet(wikipedia.parse_subject(input))
+            .then(response => {
+                res.json({output: response});
+            });
+        }
+    }else{
+        //otherwise proceed as normal
+        res.json({output: output});
+    }
+
 });
 
 server.get('/api/idea', (req, res) => {
