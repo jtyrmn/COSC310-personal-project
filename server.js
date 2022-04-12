@@ -1,6 +1,7 @@
 const express = require('express');
 const getResponse = require('./getResponse');
 const wikipedia = require('./wikipedia');
+const translate = require('./translate');
 const server = express();
 
 server.use(express.json());
@@ -8,8 +9,15 @@ server.use(express.urlencoded({extended: true}));
 
 server.use('/', express.static('site'));
 
-server.post('/api/', (req, res) => {
-    const input = req.body.input;
+server.post('/api/', async (req, res) => {
+    let input = req.body.input;
+
+    //first off: translation
+    if(!translate.is_english(input)){
+        input = await translate(input);
+        console.log('translated output... ', input)
+    }
+
     const output = getResponse(input);
     
     if(Array.isArray(output) && output[0] == 'ASYNC'){

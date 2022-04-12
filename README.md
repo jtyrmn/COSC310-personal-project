@@ -12,13 +12,7 @@ Using the power of our chat engine you can simulate talking to a Astronaut!
 [Live Demo](https://cosc-310-team-11.github.io/A3COSC310-Team11.github.io/)
 ## Authors
 
-- [@John Elder](https://github.com/justchecking)
-- [@Colin Pereira](https://github.com/ZuShi0)
-- [@Harshal Patel](https://github.com/Harshal609)
 - [@Jake Tyerman](https://github.com/jtyrmn)  
-- [@Jarod Guigon](https://github.com/J10C3G7)
-
-
 
 
 ## New Features:
@@ -79,6 +73,14 @@ Example of improvement
 
 Before we hosted the website on a Node server, all of our logic was on the client. This is extremely limiting for multiple reasons. For example, it would be very difficult to use complex NLP frameworks and libraries that were necessary for the project. We would need CDNs (content distribution networks) to send the entire libraries to the browser every time someone would connect to the website, causing network stress on both the CDN and client. Using CDNs is beyond the scope of the project anyways. Another blockade would be that since an API wouldn’t exist, we wouldn’t be able to fulfill the specification of 5 API features. Since we decided to use Node, we were able to easily overcome all these major issues with minimal effort and time.
 
+## New API features!
+I've implemented 2 new API features into this chatbot
+
+### language translation
+If the bot detects the user is typing in a language other than english, it will attempt to translate the user's input before processing it. Translation is done using the bing-translate SPI
+
+### wikipedia querying
+If the bot detects the user asking a question outside the bot's knowledge, it will go to wikipedia to retrieve information about the topic. The snippet at the top of the wikipedia page is used as a description of the subject.
 
 
 

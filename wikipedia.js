@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 const querystring = require('querystring');
 const question_identifiers = ['what', 'who', 'explain', 'tell',  'me'];
-const universals = ['is', 'are', 'a', 'the', 'about', 'of'];
+const universals = ['is', 'are', 'a', 'an', 'the', 'about', 'of', 'was'];
 
 //use this function to determine if the user is asking a parse-able "what ___ ?" question
 function is_question(statement){
@@ -36,7 +36,8 @@ async function fetch_snippet(subject){
     const response = await axios.get(query_str).then(response => response.data.query.search);
 
     if(response && response[0]){
-        const snippet = response[0].snippet.replace(/<\/?[^>]+(>|$)/g, '');
+        //remove all the HTML tags and sentences after the first one
+        const snippet = response[0].snippet.replace(/<\/?[^>]+(>|$)/g, '').split('.')[0];
         return snippet;
     }else{
         return undefined;

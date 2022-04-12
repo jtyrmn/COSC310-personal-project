@@ -17,5 +17,5 @@ async function translate(statement){
     return await bing_translate.translate(statement, null, 'en', true).then(res => res.translation);
 }
 
-module.exports.is_english = is_english;
 module.exports = translate;
+module.exports.is_english = is_english;

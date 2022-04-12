@@ -411,7 +411,6 @@ function getResponse(input){
 		return getResponseFromVocabulary(bestmatching);
 }
 
-
 const commonwords = [
 	"what",
 	"is",
